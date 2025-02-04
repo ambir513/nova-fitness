@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+@theme {
+  --color-orange: #ff5c02;
+  --color-stock: #e9eaeb;
+  --color-textColor: #9ea2ad;
+  --color-backgoundColor: #d2d2d2;
+}
+
+body,
+html {
+  font-family: "Manrope", serif;
+  margin-top: 35px;
+}
