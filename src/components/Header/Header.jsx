@@ -56,7 +56,7 @@ function Header() {
 
     return (
         <>
-            <header className='w-full h-fit flex sm:justify-center items-center z-2 fixed top-0 shadow-md'>
+            <header className='w-full h-fit flex sm:justify-center items-center z-50 fixed top-0 shadow-md'>
                 <nav className='w-full h-fit bg-white flex sm:justify-center z-50 lg:gap-[300px] md:gap-[180px] sm:gap-[100px] items-center py-5 px-4  justify-between ' >
                     <NavLink to="/">
                         <div className="flex justify-center items-center w-fit sm:ml-0 ml-6 " >
