@@ -90,7 +90,7 @@ function Header() {
                                 <MdSunny />
                             </div>
                         </div>
-                        <Link download={""}>
+                        <Link to="/membership">
                             <div className="w-fit bg-orange  justify-center items-center gap-[5px] text-white py-1 px-3 rounded-lg sm:flex hidden hover:bg-orange-400">
                                 <p className='font-bold'>Subscription</p> <LiaRupeeSignSolid className='text-xl' />
                             </div>
@@ -131,7 +131,7 @@ function Header() {
                             Contact
                         </li>
                     </NavLink>
-                    <Link to="/about" download={""}>
+                    <Link to="/membership">
                         <li className=' mx-3 py-2 flex justify-center items-center gap-[8px] bg-orange text-white px-3 rounded-lg text-center hover:bg-orange-400  cursor-pointer ' onClick={() => {
                             navBar.current.style.display = "none"
                             toggle = true

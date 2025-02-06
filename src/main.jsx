@@ -7,6 +7,7 @@ import Home from './components/Home/Home'
 import About from './components/About/About'
 import Contact from './components/Contact/Contact'
 import ErrorBoundary from './components/Error/ErrorHandling'
+import Membership from './components/Membership/Membership'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -14,8 +15,8 @@ const router = createBrowserRouter(
       <Route path='' element={<Home />} />
       <Route path='about' element={<About />} />
       <Route path='contact' element={<Contact />} />
+      <Route path='membership' element={<Membership />} />
       <Route path="*" element={ErrorBoundary} />
-
     </Route>
   )
 )
