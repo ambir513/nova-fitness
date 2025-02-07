@@ -9,7 +9,7 @@ import Contact from './components/Contact/Contact'
 import ErrorBoundary from './components/Error/ErrorHandling'
 import Membership from './components/Membership/Membership'
 import Login from './components/Login/Login'
-import Signup from './components/SignUp/Signup'
+import Signup from './components/Signup/Signup'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
