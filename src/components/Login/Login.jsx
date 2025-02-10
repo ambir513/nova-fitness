@@ -19,7 +19,7 @@ function Login() {
 
         async function fetchUser() {
             try {
-                const response = await fetch("http://localhost:5013/user", {
+                const response = await fetch("https://novafitnessbackend.vercel.app/user", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"

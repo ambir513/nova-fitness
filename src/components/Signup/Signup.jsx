@@ -23,7 +23,7 @@ function Signup() {
         else {
             const fetchData = async () => {
                 try {
-                    const response = await fetch("http://localhost:5013/", {
+                    const response = await fetch("https://novafitnessbackend.vercel.app/", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"
