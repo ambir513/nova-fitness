@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Link } from "react-router";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { HiOutlineMail } from "react-icons/hi";
@@ -9,16 +9,35 @@ import { PiLockKeyOpenBold } from "react-icons/pi";
 
 
 function Login() {
-    const [emailVal, SetEmailVal] = useState("");
-    const [password, setPassword] = useState("");
+    const email = useRef(null);
+    const password = useRef(null);
     const [typechanger, setTypeChanger] = useState(false)
 
+    function handleLogin() {
+        let userEmail = email.current.value
+        let userPassword = password.current.value
 
-    function handleEmail(e) {
-        SetEmailVal(e.target.value)
-    }
-    function handlePassword(e) {
-        setPassword(e.target.value)
+        async function fetchUser() {
+            try {
+                const response = await fetch("http://localhost:5013/user", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        email: userEmail,
+                        password: userPassword
+                    })
+                })
+                const data = await response.json();
+                console.log(data);
+            } catch (error) {
+                console.log(error);
+            }
+
+        }
+        fetchUser()
+
     }
 
     return (
@@ -39,8 +58,7 @@ function Login() {
                         <input
                             type="email"
                             id="email"
-                            value={emailVal}
-                            onChange={handleEmail}
+                            ref={email}
                             placeholder="example@gmail.com"
                             className="w-full  focus:outline-none border-2 border-black/10 text-black py-1.5 px-10 rounded-lg "
                         />
@@ -54,9 +72,8 @@ function Login() {
                         <input
                             type={typechanger ? 'text' : 'password'}
                             id="Password"
-                            value={password}
+                            ref={password}
                             placeholder="Password"
-                            onChange={handlePassword}
                             className="w-full focus:outline-none border-2 border-black/10 text-black py-1.5  px-10 rounded-lg "
                         />
                         <PiLockKeyOpenBold className="absolute top-9.5 left-3" size={20} />
@@ -67,6 +84,7 @@ function Login() {
                     <button
                         type="submit"
                         className=" cursor-pointer rounded-lg w-full bg-indigo-500 font-bold py-2 text-white hover:bg-indigo-600 px-4 "
+                        onClick={handleLogin}
                     >
                         login
                     </button>

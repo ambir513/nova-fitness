@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Link } from "react-router";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { HiOutlineMail } from "react-icons/hi";
@@ -7,26 +7,48 @@ import { FaRegUser } from "react-icons/fa6";
 
 
 function Signup() {
-    const [emailVal, SetEmailVal] = useState("");
-    const [password, setPassword] = useState("");
-    const [textVal, setTextVal] = useState("");
+    const Name = useRef(null);
+    const email = useRef(null);
+    const password = useRef(null);
     const [typechanger, setTypeChanger] = useState(false)
 
 
-    function handleEmail(e) {
-        SetEmailVal(e.target.value)
-    }
-    function handlePassword(e) {
-        setPassword(e.target.value)
-    }
-    function handleUser(e) {
-        setTextVal(e.target.value)
+    function handleSubmit(e) {
+        e.preventDefault()
+
+        let userName = Name.current.value
+        let userEmail = email.current.value
+        let userPassword = password.current.value
+        if (userName === "" && userEmail === "" && userPassword === "") return
+        else {
+            const fetchData = async () => {
+                try {
+                    const response = await fetch("http://localhost:5013/", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            name: userName,
+                            email: userEmail,
+                            password: userPassword
+                        })
+                    })
+                    const data = await response.json();
+                    console.log(data);
+                } catch (error) {
+                    console.error("Error fetching data:", error);
+                }
+
+            }
+            fetchData()
+        }
     }
 
     return (
         <div className="flex flex-col justify-center items-center h-dvh text-black w-full ">
             <img src="/logo2.svg" alt="" width={55} />
-            <form onSubmit={(e) => e.preventDefault()}>
+            <form onSubmit={handleSubmit}>
                 <div className=" relative flex flex-col justify-center  w-fit p-4   bg-white rounded-lg h-fit px-7">
                     <h1 className="text-lg text-center font-extrabold">
                         Welcome to <span className="text-blue-600">Nova Fitness</span>
@@ -41,8 +63,7 @@ function Signup() {
                         <input
                             type="text"
                             id="text"
-                            value={textVal}
-                            onChange={handleUser}
+                            ref={Name}
                             placeholder="ex: Amit singh"
                             className="w-full  focus:outline-none border-2 border-black/10 text-black py-1.5 px-10 rounded-lg "
                         />
@@ -55,8 +76,7 @@ function Signup() {
                         <input
                             type="email"
                             id="email"
-                            value={emailVal}
-                            onChange={handleEmail}
+                            ref={email}
                             placeholder="example@gmail.com"
                             className="w-full  focus:outline-none border-2 border-black/10 text-black py-1.5 px-10 rounded-lg "
                         />
@@ -69,19 +89,18 @@ function Signup() {
                         <input
                             type={typechanger ? 'text' : 'password'}
                             id="Password"
-                            value={password}
+                            ref={password}
                             placeholder="Password"
-                            onChange={handlePassword}
                             className="w-full focus:outline-none border-2 border-black/10 text-black py-1.5  px-10 rounded-lg "
                         />
                         <PiLockKeyOpenBold className="absolute top-9.5 left-3" size={20} />
-                        <button className="absolute right-4.5 top-9.5 cursor-pointer"
+                        <div className="absolute right-4.5 top-9.5 cursor-pointer"
                             onClick={() => setTypeChanger(prev => !prev)}
-                        >{typechanger ? <FiEye size={20} /> : <FiEyeOff size={20} />}</button>
+                        >{typechanger ? <FiEye size={20} /> : <FiEyeOff size={20} />}</div>
                     </div>
                     <button
                         type="submit"
-                        className="rounded-lg w-full bg-indigo-500 font-bold py-2 text-white hover:bg-indigo-600 px-4"
+                        className=" cursor-pointer rounded-lg w-full bg-indigo-500 font-bold py-2 text-white hover:bg-indigo-600 px-4"
                     >
                         Create account
                     </button>
