@@ -1,9 +1,11 @@
 import React, { useState, useRef } from "react";
-import { Link } from "react-router";
+import { Link } from "react-router-dom"
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { HiOutlineMail } from "react-icons/hi";
 import { PiLockKeyOpenBold } from "react-icons/pi";
 import { FaRegUser } from "react-icons/fa6";
+import toast, { Toaster } from 'react-hot-toast';
+
 
 
 function Signup() {
@@ -19,34 +21,37 @@ function Signup() {
         let userName = Name.current.value
         let userEmail = email.current.value
         let userPassword = password.current.value
-        if (userName === "" && userEmail === "" && userPassword === "") return
-        else {
-            const fetchData = async () => {
-                try {
-                    const response = await fetch("http://localhost:8000/user", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify({
-                            name: userName,
-                            email: userEmail,
-                            password: userPassword
-                        })
-                    })
-                    const data = await response.json();
-                    console.log(data);
-                } catch (error) {
-                    console.error("Error fetching data:", error);
-                }
 
+        const fetchData = async () => {
+            try {
+                const response = await fetch("https://novafitnessbackend.vercel.app/user/signup", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        name: userName,
+                        email: userEmail,
+                        password: userPassword
+                    })
+                })
+                const data = await response.json();
+                data.status == "SUCCESS" ? toast.success(data.message) : toast.error(data.message)
+            } catch (error) {
+                console.error("Error fetching data:", error);
             }
-            fetchData()
+
         }
+
+        fetchData()
     }
 
     return (
         <div className="flex flex-col justify-center items-center h-dvh text-black w-full ">
+            <Toaster
+                position="top-right"
+                reverseOrder={false}
+            />
             <img src="/logo2.svg" alt="" width={55} />
             <form onSubmit={handleSubmit}>
                 <div className=" relative flex flex-col justify-center  w-fit p-4   bg-white rounded-lg h-fit px-7">

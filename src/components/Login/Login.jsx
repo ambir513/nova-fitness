@@ -3,9 +3,7 @@ import { Link } from "react-router";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { HiOutlineMail } from "react-icons/hi";
 import { PiLockKeyOpenBold } from "react-icons/pi";
-
-
-
+import toast, { Toaster } from 'react-hot-toast';
 
 
 function Login() {
@@ -19,7 +17,7 @@ function Login() {
 
         async function fetchUser() {
             try {
-                const response = await fetch("http://localhost:8000/user", {
+                const response = await fetch("https://novafitnessbackend.vercel.app/user/login", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
@@ -30,6 +28,7 @@ function Login() {
                     })
                 })
                 const data = await response.json();
+                data.status == "SUCCESS" ? toast.success(data.message) : toast.error(data.message)
                 console.log(data);
             } catch (error) {
                 console.log(error);
@@ -42,6 +41,10 @@ function Login() {
 
     return (
         <div className="flex flex-col justify-center items-center h-dvh text-black w-full ">
+            <Toaster
+                position="top-right"
+                reverseOrder={false}
+            />
             <img src="/logo2.svg" alt="" width={55} />
             <form onSubmit={(e) => e.preventDefault()}>
                 <div className="flex flex-col justify-center  w-fit p-4   bg-white rounded-lg h-fit px-7">
@@ -92,7 +95,6 @@ function Login() {
                         Doesn't have account? &nbsp;&nbsp;
                         <span className="font-bold text-md text-indigo-500">
                             <Link to="/signup">Create account</Link>
-
                         </span>
                     </p>
                 </div>
