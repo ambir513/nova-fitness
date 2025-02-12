@@ -9,7 +9,8 @@ function Routes() {
             <Header />
             <Outlet />
             <Footer />
- 
+
+
         </>
     )
 }

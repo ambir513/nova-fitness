@@ -19,7 +19,7 @@ function Login() {
 
         async function fetchUser() {
             try {
-                const response = await fetch("https://novafitnessbackend.vercel.app/user", {
+                const response = await fetch("http://localhost:8000/user", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
@@ -92,6 +92,7 @@ function Login() {
                         Doesn't have account? &nbsp;&nbsp;
                         <span className="font-bold text-md text-indigo-500">
                             <Link to="/signup">Create account</Link>
+
                         </span>
                     </p>
                 </div>
